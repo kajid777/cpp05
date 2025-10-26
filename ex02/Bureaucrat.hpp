@@ -27,6 +27,7 @@ public:
 	
 	//methods
 	void signForm(AForm& form);
+	void executeForm(AForm const & form) const;
 	
 	//exceptions
 	class GradeTooHighException : public std::exception {

@@ -66,6 +66,14 @@ const char* AForm::GradeTooLowException::what() const throw() {
 	return "Form grade is too low! (must be <= 150)";
 }
 
+const char* AForm::FormNotSignedException::what() const throw() {
+	return "Form is not signed! Cannot execute unsigned form.";
+}
+
+const char* AForm::ExecuteGradeTooLowException::what() const throw() {
+	return "Bureaucrat grade is too low to execute this form!";
+}
+
 std::ostream& operator<<(std::ostream& os, const AForm& form) {
 	os << "Form " << form.getName() 
 	   << " (signed: " << (form.getIsSigned() ? "yes" : "no")

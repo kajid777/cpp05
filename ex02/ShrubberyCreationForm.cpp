@@ -1,6 +1,7 @@
 #include "ShrubberyCreationForm.hpp"
 #include "Bureaucrat.hpp"
 #include <fstream>
+#include <iostream>
 
 // Constructors
 ShrubberyCreationForm::ShrubberyCreationForm() 
@@ -31,14 +32,12 @@ const std::string ShrubberyCreationForm::getTarget() const {
 void ShrubberyCreationForm::execute(const Bureaucrat& executor) const {
 	// Check if form is signed
 	if (!this->getIsSigned()) {
-		std::cout << "ShrubberyCreationForm is not signed!" << std::endl;
-        return;
+		throw FormNotSignedException();
 	}
 	
 	// Check if executor has sufficient grade
 	if (executor.getGrade() > this->getGradeToExecute()) {
-		std::cout << "Bureaucrat grade is too low to execute ShrubberyCreationForm!" << std::endl;
-        return;
+		throw ExecuteGradeTooLowException();
 	}
 	
 	// Create file and write ASCII trees
@@ -47,7 +46,7 @@ void ShrubberyCreationForm::execute(const Bureaucrat& executor) const {
 	
 	if (!file.is_open()) {
 		std::cout << "Failed to create file: " << filename << std::endl;
-        return;
+		return;
 	}
 	
 	// Write ASCII trees
